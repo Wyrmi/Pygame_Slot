@@ -15,7 +15,7 @@ class Slot:
         self.money = 20
         self.bet = 0
         self.housewin = 0
-        self.row = [3,0,1]
+        self.row = [0,1,2]
         self.handle = False
         self.roll = False
         self.display = pygame.display.set_mode((700, 700))
@@ -94,48 +94,34 @@ class Slot:
             #x3
             mytext = myfont.render(f"{self.bet * 7}€", True, (0,0,0))
             self.display.blit(mytext, (290, 430))
-            self.display.blit(self.thumbnails[0], (160, 430))
-            self.display.blit(self.thumbnails[0], (200, 430))
-            self.display.blit(self.thumbnails[0], (240, 430))
             mytext = myfont.render(f"{self.bet * 5}€", True, (0,0,0))
             self.display.blit(mytext, (290, 470))
-            self.display.blit(self.thumbnails[3], (160, 470))
-            self.display.blit(self.thumbnails[3], (200, 470))
-            self.display.blit(self.thumbnails[3], (240, 470))
             mytext = myfont.render(f"{self.bet * 3}€", True, (0,0,0))
             self.display.blit(mytext, (290, 510))
-            self.display.blit(self.thumbnails[1], (160, 513))
-            self.display.blit(self.thumbnails[1], (200, 513))
-            self.display.blit(self.thumbnails[1], (240, 513))
             mytext = myfont.render(f"{self.bet * 2}€", True, (0,0,0))
             self.display.blit(mytext, (290, 550))
-            self.display.blit(self.thumbnails[2], (160, 550))
-            self.display.blit(self.thumbnails[2], (200, 550))
-            self.display.blit(self.thumbnails[2], (240, 550))
             #x2
             mytext = myfont.render(f"{math.floor(self.bet * 2.5)}€", True, (0,0,0))
             self.display.blit(mytext, (490, 430))
-            self.display.blit(self.thumbnails[0], (400, 430))
-            self.display.blit(self.thumbnails[0], (440, 430))
             mytext = myfont.render(f"{self.bet}€", True, (0,0,0))
             self.display.blit(mytext, (490, 470))
-            self.display.blit(self.thumbnails[3], (400, 470))
-            self.display.blit(self.thumbnails[3], (440, 470))
             mytext = myfont.render(f"{math.floor(self.bet/2)}€", True, (0,0,0))
             self.display.blit(mytext, (490, 510))
-            self.display.blit(self.thumbnails[1], (400, 513))
-            self.display.blit(self.thumbnails[1], (440, 513))
             mytext = myfont.render(f"{math.floor(self.bet/3)}€", True, (0,0,0))
             self.display.blit(mytext, (490, 550))
-            self.display.blit(self.thumbnails[2], (400, 550))
-            self.display.blit(self.thumbnails[2], (440, 550))
+            #image thumbnails
+            xs = [160,200,240,400,440]
+            ys = [430,470,513,550]
+            for y in range(len(self.thumbnails)):
+                for x in xs:
+                    self.display.blit(self.thumbnails[y], (x, ys[y]))
 
         pygame.display.flip()
 
     def loadImages(self):
         self.images = []
         self.thumbnails = []
-        for nimi in ["cherry","orange","lemon","watermelon"]:
+        for nimi in ["cherry","orange","watermelon","lemon"]:
             self.images.append(pygame.image.load(nimi + ".png"))
             self.thumbnails.append(pygame.image.load(nimi + ".png"))
             self.thumbnails[-1] = pygame.transform.scale(self.thumbnails[-1], (0.4*self.thumbnails[-1].get_width(), 0.4*self.thumbnails[-1].get_height()))
@@ -145,9 +131,9 @@ class Slot:
             #no bet placed
             return
         self.housewin += self.bet
-        nextrow = []
-        for i in range(0,3):
-            nextrow.append(random.randint(0,len(self.images)-1))
+        nextrow = [0,3,3]
+        #for i in range(0,3):
+         #   nextrow.append(random.randint(0,len(self.images)-1))
         self.row = nextrow
         if len(set(nextrow)) ==1:
             #x3
@@ -155,22 +141,26 @@ class Slot:
                 case 0:
                     self.money += self.bet * 7
                 case 1:
-                    self.money += self.bet * 3
-                case 2:
-                    self.money += self.bet * 2
-                case 3:
                     self.money += self.bet * 5
+                case 2:
+                    self.money += self.bet * 3
+                case 3:
+                    self.money += self.bet * 2
         elif len(set(nextrow)) ==2:
             #x2
-            match nextrow[0]:
+            if nextrow.count(nextrow[0]) == 2:
+                m = nextrow[0]
+            else:
+                m = nextrow[1]
+            match m:
                 case 0:
                     self.money += math.floor(self.bet * 2.5)
                 case 1:
-                    self.money += math.floor(self.bet/2)
-                case 2:
-                    self.money += math.floor(self.bet/3)
-                case 3:
                     self.money += self.bet
+                case 2:
+                    self.money += math.floor(self.bet/2)
+                case 3:
+                    self.money += math.floor(self.bet/3)
         self.bet = 0
         if self.money == 0:
             self.gameover = True
