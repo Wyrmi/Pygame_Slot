@@ -65,49 +65,34 @@ class Slot:
             pygame.draw.line(self.display, (0, 0, 0), (510, 170), (510, 220), 2)
         #money texts
         myfont = pygame.font.SysFont("Arial", 30)
-        mytext = myfont.render(f"wallet: {self.money}€", True, (10, 250, 50))
-        self.display.blit(mytext, (100, 50))
-        myfont = pygame.font.SysFont("Arial", 30)
-        mytext = myfont.render(f"bet: {self.bet}€", True, (0,0,0))
-        self.display.blit(mytext, (280, 300))
+        self.display.blit(myfont.render(f"wallet: {self.money}€", True, (10, 250, 50)), (100, 50))
+        self.display.blit(myfont.render(f"bet: {self.bet}€", True, (0,0,0)), (280, 300))
         
         if self.gameover:
             #game over message when user has run out of money
             myfont = pygame.font.SysFont("Arial", 50)
-            mytext = myfont.render(f"Game Over", True, (250, 0, 0))
-            self.display.blit(mytext, (220, 450))
+            self.display.blit(myfont.render(f"Game Over", True, (250, 0, 0)), (220, 450))
             myfont = pygame.font.SysFont("Arial", 35)
-            mytext = myfont.render(f"You splurged {self.housewin}€", True, (250, 0, 0))
-            self.display.blit(mytext, (215, 510))
+            self.display.blit(myfont.render(f"You splurged {self.housewin}€", True, (250, 0, 0)), (215, 510))
         elif self.money > 200:
             #congratulatory message when user has won a lot of money
             myfont = pygame.font.SysFont("Arial", 50)
-            mytext = myfont.render(f"Yay you're rich!", True, (0, 250, 0))
-            self.display.blit(mytext, (180, 450))
+            self.display.blit(myfont.render(f"Yay you're rich!", True, (0, 250, 0)), (180, 450))
             myfont = pygame.font.SysFont("Arial", 35)
-            mytext = myfont.render(f"You invested {self.housewin}€", True, (0, 250, 0))
-            self.display.blit(mytext, (215, 510))
+            self.display.blit(myfont.render(f"You invested {self.housewin}€", True, (0, 250, 0)), (215, 510))
         else:
             #winlist
             myfont = pygame.font.SysFont("Arial", 30)
             #x3
-            mytext = myfont.render(f"{self.bet * 7}€", True, (0,0,0))
-            self.display.blit(mytext, (290, 430))
-            mytext = myfont.render(f"{self.bet * 5}€", True, (0,0,0))
-            self.display.blit(mytext, (290, 470))
-            mytext = myfont.render(f"{self.bet * 3}€", True, (0,0,0))
-            self.display.blit(mytext, (290, 510))
-            mytext = myfont.render(f"{self.bet * 2}€", True, (0,0,0))
-            self.display.blit(mytext, (290, 550))
+            self.display.blit(myfont.render(f"{self.bet * 7}€", True, (0,0,0)), (290, 430))
+            self.display.blit(myfont.render(f"{self.bet * 5}€", True, (0,0,0)), (290, 470))
+            self.display.blit(myfont.render(f"{self.bet * 3}€", True, (0,0,0)), (290, 510))
+            self.display.blit(myfont.render(f"{self.bet * 2}€", True, (0,0,0)), (290, 550))
             #x2
-            mytext = myfont.render(f"{math.floor(self.bet * 2.5)}€", True, (0,0,0))
-            self.display.blit(mytext, (490, 430))
-            mytext = myfont.render(f"{self.bet}€", True, (0,0,0))
-            self.display.blit(mytext, (490, 470))
-            mytext = myfont.render(f"{math.floor(self.bet/2)}€", True, (0,0,0))
-            self.display.blit(mytext, (490, 510))
-            mytext = myfont.render(f"{math.floor(self.bet/3)}€", True, (0,0,0))
-            self.display.blit(mytext, (490, 550))
+            self.display.blit(myfont.render(f"{math.floor(self.bet * 2.5)}€", True, (0,0,0)), (490, 430))
+            self.display.blit(myfont.render(f"{self.bet}€", True, (0,0,0)), (490, 470))
+            self.display.blit(myfont.render(f"{math.floor(self.bet/2)}€", True, (0,0,0)), (490, 510))
+            self.display.blit(myfont.render(f"{math.floor(self.bet/3)}€", True, (0,0,0)), (490, 550))
             #image thumbnails
             xs = [160,200,240,400,440]
             ys = [430,470,513,550]
