@@ -26,7 +26,6 @@ class Slot:
     
     def updateView(self):
         self.display.fill((0,0,0))
-
         #draw slot machine
         pygame.draw.rect(self.display, (255, 0, 0), (55, 225, 50, 60))
         pygame.draw.rect(self.display, (250, 200, 0), (100, 100, 490, 270))
@@ -131,9 +130,9 @@ class Slot:
             #no bet placed
             return
         self.housewin += self.bet
-        nextrow = [0,3,3]
-        #for i in range(0,3):
-         #   nextrow.append(random.randint(0,len(self.images)-1))
+        nextrow = []
+        for i in range(0,3):
+            nextrow.append(random.randint(0,len(self.images)-1))
         self.row = nextrow
         if len(set(nextrow)) ==1:
             #x3
